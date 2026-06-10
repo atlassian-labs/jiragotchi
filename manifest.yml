@@ -26,16 +26,13 @@ modules:
       urlFormat: v2
 
 resources:
-  # Single resource serves all three modules. The bundle reads
-  # view.getContext().moduleKey at runtime to decide which view to render
-  # (see static/custom-ui/src/main.jsx).
   - key: main
     path: static/custom-ui/build
 
 permissions:
   scopes:
-    - storage:app
     - read:jira-work
+    - storage:app
 
 app:
   runtime:
@@ -43,3 +40,17 @@ app:
     memoryMB: 256
     architecture: arm64
   id: ari:cloud:ecosystem::app/fc400b8e-f0c4-4085-8144-384d098adcee
+  storage:
+    entities:
+      - name: pet
+        attributes:
+          projectId:
+            type: string
+          happiness:
+            type: integer
+          lastFedAt:
+            type: string
+        indexes:
+          - name: leaderboard
+            range:
+              - happiness
