@@ -24,15 +24,21 @@ modules:
     - key: demo-data
       function: resolver-webtrigger
       urlFormat: v2
+  sql:
+    - key: db
+      engine: mysql
 
 resources:
+  # Single resource serves all three modules. The bundle reads
+  # view.getContext().moduleKey at runtime to decide which view to render
+  # (see static/custom-ui/src/main.jsx).
   - key: main
     path: static/custom-ui/build
 
 permissions:
   scopes:
-    - read:jira-work
     - storage:app
+    - read:jira-work
 
 app:
   runtime:
